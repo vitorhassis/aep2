@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: observacao-backend
+
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/observacao}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate          # schema gerenciado pelo schema.sql
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        default_schema: public
+
+  sql:
+    init:
+      mode: never                 # rodar schema.sql manualmente no PostgreSQL
+
+server:
+  port: 8080
+
+jwt:
+  secret: ${JWT_SECRET:Xk9mP2qR7tY4wZ1nJ8vB3cL6hD0eF5iK}  # mude em produção
+  expiration-ms: ${JWT_EXPIRATION_MS:900000}          # 15 min
+  refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000}  # 7 dias
+
+cors:
+  allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:5174,http://localhost:3000}
+
+logging:
+  level:
+    com.observacao: DEBUG
+    org.springframework.security: INFO
